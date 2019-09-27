@@ -19,7 +19,10 @@ module.exports = function(app) {
     });
 
     app.post(`/api/burgers/`, function(req, res) {
-        db.Burger.create(req.body).then(function(burger) {
+        db.Burger.create({
+            burger_name: req.body.name,
+            devoured: req.body.devoured
+        }).then(function(burger) {
             res.json(burger);
         });
     });
@@ -34,7 +37,7 @@ module.exports = function(app) {
         });
     });
 
-    app.put(`/api/burgers/:id`, function(req, res) {
+    app.put(`/api/burgers/`, function(req, res) {
         db.Burger.update({
             devoured: req.body.devoured
         }, {

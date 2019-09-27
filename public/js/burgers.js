@@ -14,18 +14,22 @@ $(function() {
     });
 
     $(`.change-devoured`).on(`click`, function(event) {
+        event.preventDefault();
 
-        var id = $(this).data(`id`);
-        var newDevour = $(this).data(`newdevour`);
+        var devoured = $(this).data(`newdevour`);
+
+        var newDevour = true;
+
+        if (devoured) newDevour = false;
 
         var newDevouredState = {
-            id: id,
+            id: $(this).data(`id`),
             devoured: newDevour
         };
 
 
         // Put request
-        $.ajax(`/api/burgers/${id}`, {
+        $.ajax(`/api/burgers`, {
             type: `PUT`,
             data: newDevouredState
         }).then(() => {
